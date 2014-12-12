@@ -67,7 +67,7 @@ void MainWindow::on_searchButton_clicked()
     }
     else
     {
-        QMessageBox::information(this, "Сообщение", "Не вомзможно найти вхождения строки в матрицу", QMessageBox::Ok);
+        QMessageBox::information(this, "Сообщение", "Невозможно найти вхождение строки в матрицу", QMessageBox::Ok);
     }
 }
 
