@@ -30,7 +30,7 @@ void MainWindow::on_loadButton_clicked()
     }
     try
     {
-        letterMatrix = inputparser::parseInputFile(fileName.toStdString());
+        letterMatrix = inputparser::parseInputFile(fileName.toLocal8Bit().toStdString());
         ui->tableWidget->setRowCount(letterMatrix.size());
         ui->tableWidget->setColumnCount(letterMatrix.at(0).size());
         for (size_t i = 0 ; i < letterMatrix.size() ; ++i)
@@ -41,9 +41,9 @@ void MainWindow::on_loadButton_clicked()
             }
         }
     }
-    catch (std::invalid_argument& )
+    catch (std::invalid_argument& e)
     {
-        QMessageBox::information(this, "Предупреждание", "Невозможно загрузить файл", QMessageBox::Ok);
+        QMessageBox::information(this, "Предупреждание", QString::fromStdString(std::string("Невозможно загрузить файл ") + e.what()), QMessageBox::Ok);
     }
 }
 

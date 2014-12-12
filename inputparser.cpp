@@ -8,6 +8,8 @@
 #include <iterator>
 #include <iostream>
 #include <sstream>
+#include <locale>
+#include <codecvt>
 
 namespace {
 
@@ -26,6 +28,8 @@ namespace {
     }
 }
 
+using namespace std;
+
 namespace inputparser {
 
     matrix_type parseInputFile(const std::string& fileName)
@@ -35,7 +39,7 @@ namespace inputparser {
         {
             throw std::invalid_argument("File not foud");
         }
-        input.imbue(std::locale("en_US.UTF8"));
+        input.imbue(std::locale(input.getloc(), new std::codecvt_utf8_utf16<wchar_t>));
         std::vector<wchar_t> buffer(1000);
         input.getline(buffer.data(), buffer.size(), L' ');
         size_t n = parse<size_t>(buffer.data());
