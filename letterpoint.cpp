@@ -5,6 +5,7 @@ LetterPoint::LetterPoint(int i, int j, wchar_t letter)
     this->x = i;
     this->y = j;
     this->letter = letter;
+    this->used = false;
 }
 
 int LetterPoint::getX() const

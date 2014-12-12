@@ -34,7 +34,7 @@ namespace inputparser {
 
     matrix_type parseInputFile(const std::string& fileName)
     {
-        std::wifstream input(fileName.c_str(), std::ifstream::in);
+        std::wifstream input(fileName.c_str(), std::ifstream::in | std::ifstream::binary);
         if (!input.is_open())
         {
             throw std::invalid_argument("File not foud");

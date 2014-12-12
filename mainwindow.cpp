@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <stdexcept>
 #include <stack>
+#include <codecvt>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,13 +32,13 @@ void MainWindow::on_loadButton_clicked()
     try
     {
         letterMatrix = inputparser::parseInputFile(fileName.toLocal8Bit().toStdString());
-        ui->tableWidget->setRowCount(letterMatrix.size());
-        ui->tableWidget->setColumnCount(letterMatrix.at(0).size());
+        ui->tableWidget->setRowCount((int)letterMatrix.size());
+        ui->tableWidget->setColumnCount((int)letterMatrix.at(0).size());
         for (size_t i = 0 ; i < letterMatrix.size() ; ++i)
         {
             for (size_t j = 0 ; j < letterMatrix.at(i).size() ; ++j)
             {
-                ui->tableWidget->setItem(i, j, new QTableWidgetItem(QString::fromWCharArray(&letterMatrix.at(i).at(j), 1)));
+                ui->tableWidget->setItem((int)i, (int)j, new QTableWidgetItem(QString::fromWCharArray(&letterMatrix.at(i).at(j), 1)));
             }
         }
     }
@@ -50,8 +51,10 @@ void MainWindow::on_loadButton_clicked()
 void MainWindow::on_searchButton_clicked()
 {
     refreshTableWidget();
-    std::wstring pattern = ui->patternEdit->text().toStdWString();
-    if (pattern.empty() || letterMatrix.empty()) {
+    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t> > converter;
+    std::wstring pattern = converter.from_bytes(ui->patternEdit->text().toStdString());
+    if (pattern.empty() || letterMatrix.empty())
+    {
         QMessageBox::information(this, "Предупреждание", "Не заполнены все необходимые поля", QMessageBox::Ok);
         return;
     }

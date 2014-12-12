@@ -2,7 +2,6 @@
 #include <boost/unordered_map.hpp>
 #include <vector>
 
-
 typedef boost::unordered_map<wchar_t, std::vector<LetterPoint> > map_type;
 
 namespace {
@@ -30,7 +29,7 @@ namespace {
         for (size_t i = 0 ; i < nextPointList.size() ; ++i)
         {
             if (!nextPointList.at(i).isUsed() && isNeighbours(currentPoint, nextPointList.at(i)) &&
-                    findInMap(map, pattern.substr(1), map.find(pattern.at(0))->second.at(i), path))
+                    findInMap(map, pattern.substr(1), nextPointList.at(i), path))
             {
                 return true;
             }
