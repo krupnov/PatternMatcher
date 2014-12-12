@@ -50,7 +50,7 @@ void MainWindow::on_loadButton_clicked()
 void MainWindow::on_searchButton_clicked()
 {
     refreshTableWidget();
-    pattern = ui->patternEdit->text().toStdWString();
+    std::wstring pattern = ui->patternEdit->text().toStdWString();
     if (pattern.empty() || letterMatrix.empty()) {
         QMessageBox::information(this, "Предупреждание", "Не заполнены все необходимые поля", QMessageBox::Ok);
         return;

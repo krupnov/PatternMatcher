@@ -29,7 +29,6 @@ private:
     Ui::MainWindow *ui;
 
     matrix_type letterMatrix;
-    std::wstring pattern;
 };
 
 #endif // MAINWINDOW_H
